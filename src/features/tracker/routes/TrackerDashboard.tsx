@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTrackerData } from '../hooks/useTrackerData';
 import OverallTurnoutCard from '../components/OverallTurnoutCard';
-import LeaderboardList from '../components/LeaderboardList';
 import DidYouKnowWidget from '../components/DidYouKnowWidget';
-import QrWidget from '../components/QrWidget';
 import { FlickeringGrid } from '../components/FlickeringGrid'; 
+import QrWidget from '../components/QrWidget';
+import LeaderboardList from '../components/LeaderboardList';
 
 const TrackerDashboard = () => {
   const { data, isLoading, error } = useTrackerData();
