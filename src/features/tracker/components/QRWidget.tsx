@@ -1,6 +1,6 @@
 const QrWidget = () => {
   return (
-    <div className="bg-[#bfe6c4] p-8 shadow-sm flex flex-col items-center text-center">
+    <div className="bg-[#bfe6c4] p-4 shadow-sm flex flex-col items-center text-center">
       <h2 className="text-2xl font-heading font-bold text-green-900 mb-2">
         LET YOUR VOICE BE HEARD
       </h2>
@@ -8,7 +8,7 @@ const QrWidget = () => {
         YOUR VOTE MATTERS. PARTICIPATE IN THIS YEAR'S SG ELECTIONS
       </p>
 
-      <div className="bg-white p-4 rounded-sm shadow-md mb-6 w-48 h-48 flex items-center justify-center">
+      <div className="bg-white p-4 rounded-sm shadow-md mb-6 w-56 h-56 flex items-center justify-center">
         {/* Replace with your actual QR code image */}
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"

@@ -4,6 +4,7 @@ import type { CollegeTurnout } from "../types";
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
+const TIMER = 60000;
 
 export const useTrackerData = () => {
   const [data, setData] = useState<CollegeTurnout[]>([]);
@@ -14,6 +15,7 @@ export const useTrackerData = () => {
     const fetchTally = async () => {
       try {
         const response = await axios.get<TallyApiResponse>(`${API_URL}/tally`);
+        console.log('Fetched data')
         const payload = response.data;
         const actualArray = Array.isArray(payload) ? payload : payload?.data;
 
@@ -37,9 +39,9 @@ export const useTrackerData = () => {
     };
 
     fetchTally();
-    // const intervalId = setInterval(fetchTally, 60000);
+    const intervalId = setInterval(fetchTally, TIMER);
 
-    // return () => clearInterval(intervalId)
+    return () => clearInterval(intervalId)
   }, []);
 
   useEffect(() => {

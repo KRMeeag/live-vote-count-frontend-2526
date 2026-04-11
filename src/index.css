@@ -1,11 +1,16 @@
 /* src/index.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
 
-/* Initialize Tailwind v4 */
 @import "tailwindcss";
 
-/* Define custom theme variables (Replaces tailwind.config.ts) */
 @theme {
   --font-sans: 'Inter', sans-serif;
   --font-heading: 'Space Grotesk', sans-serif;
+  
+  /* Slower, smoother, alternating shimmer */
+  --animate-shimmer: shimmer 4s ease-in-out infinite alternate;
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
 }
