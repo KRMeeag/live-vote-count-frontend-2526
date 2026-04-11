@@ -8,7 +8,7 @@ interface LeaderboardListProps {
 }
 
 const LeaderboardList = ({ pollData }: LeaderboardListProps) => {
-  const sortedData = [...pollData].sort((a, b) => b.count - a.count);
+  const sortedData = [...pollData].sort((a, b) => b.percentage - a.percentage);
 
   if (sortedData.length === 0) return null;
 
