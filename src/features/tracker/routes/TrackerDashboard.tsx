@@ -130,7 +130,7 @@ const TrackerDashboard = () => {
       </header>
 
       {/* Main Content Wrapper - Houses both the Grid and the Cards */}
-      <div className="relative flex-grow min-h-0 flex flex-col">
+      <div className="relative grow min-h-0 flex flex-col">
         {/* Absolute Background Canvas (z-0) */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <FlickeringGrid
@@ -144,9 +144,9 @@ const TrackerDashboard = () => {
         </div>
 
         {/* Foreground Cards (z-10) */}
-        <main className="relative z-10 flex-grow max-w-screen-2xl mx-auto w-full p-6 grid grid-cols-1 xl:grid-cols-10 gap-6 items-stretch min-h-0">
+        <main className="relative z-10 grow max-w-screen-2xl mx-auto w-full p-6 grid grid-cols-1 xl:grid-cols-10 gap-6 items-stretch min-h-0">
           <div className="xl:col-span-7 flex flex-col gap-6 h-full min-h-0">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <OverallTurnoutCard pollData={data} />
             </div>
             <div className="flex-grow min-h-0">
