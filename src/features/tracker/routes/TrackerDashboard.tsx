@@ -70,7 +70,7 @@ const TrackerDashboard = () => {
         <div className="relative flex items-center justify-center w-32 h-32 mb-6">
           <div className="absolute inset-0 rounded-full border-4 border-gray-200 border-t-green-800 animate-spin"></div>
           <img 
-            src="/logos/comelec-logo.png" 
+            src="/comelec.png" 
             alt="COMELEC" 
             className="w-20 h-20 object-contain animate-pulse z-10" 
           />
@@ -92,7 +92,7 @@ const TrackerDashboard = () => {
       {/* Header - Z-index elevated, solid white background prevents grid bleed */}
       <header className="relative bg-white border-b-4 border-green-800 px-6 py-3 flex items-center justify-between shadow-sm flex-shrink-0 z-20">
         <div className="flex items-center gap-4 z-10">
-          <img src="/logos/comelec-logo.png" alt="COMELEC" className="h-10 w-10 object-contain" />
+          <img src="/comelec.png" alt="COMELEC" className="h-10 w-10 object-contain" />
           <div>
             <h2 className="text-xs font-bold text-green-800 tracking-wider">DE LA SALLE LIPA</h2>
             <h1 className="text-sm font-bold tracking-widest uppercase">COMMISSION ON ELECTIONS</h1>

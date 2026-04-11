@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Info } from 'lucide-react';
 
 const facts: string[] = [
+  "All qualifications being implemented by the Student Government Elections were set by the Student Government and is stipulated by their honorable constitution.",
+  'Electoral candidates can have a "Failed Election" if the combined total votes cast for the candidate and abstentions does not reach the 50% + 1 threshold of the total student population',
   "The SG Executive President is qualified to receive a 100% discount on tuition and miscellaneous fees under the Student Leaders' Assistance Program.",
-  "Voting turnout increased by 14% during the last academic year due to the implementation of live digital tracking.",
-  "Your vote is strictly confidential and protected under the Data Privacy Act of 2012."
 ];
 
 const DidYouKnowWidget = () => {
@@ -23,7 +23,7 @@ const DidYouKnowWidget = () => {
     <div className="bg-green-800 text-white p-6 shadow-sm relative overflow-hidden flex flex-col flex-grow h-full min-h-[220px]">
       <div className="flex items-center gap-3 mb-6">
         <Info size={24} className="text-green-300" />
-        <h3 className="font-bold text-sm tracking-widest uppercase text-green-50">Did You Know</h3>
+        <h3 className="font-bold text-sm tracking-widest uppercase text-green-50">Did You Know?</h3>
         <div className="h-4 flex-grow border-b border-white/20 ml-2"></div>
       </div>
 
