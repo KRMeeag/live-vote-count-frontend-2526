@@ -1,5 +1,5 @@
 // src/features/tracker/hooks/useTrackerData.ts
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import type { CollegeTurnout, TallyApiResponse } from '../types';
 
@@ -9,38 +9,40 @@ export const useTrackerData = () => {
   const [data, setData] = useState<CollegeTurnout[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // Use a ref to strictly track the highest valid vote count 
-  // without triggering unnecessary re-renders.
-  const highestTotalRef = useRef<number>(0);
 
   useEffect(() => {
     const fetchTally = async () => {
       try {
         const response = await axios.get<TallyApiResponse>(`${API_URL}/tally`);
         const payload = response.data;
+        
+        // Handle varying backend response structures (direct array vs wrapped object)
         const actualArray = Array.isArray(payload) ? payload : payload?.data;
 
+        // 1. Array Validation: Reject if the backend drops the payload entirely
         if (!Array.isArray(actualArray) || actualArray.length === 0) {
           throw new Error("Received empty or malformed data payload.");
         }
 
-        const incomingTotal = actualArray.reduce((acc, curr) => acc + curr.count, 0);
+        // 2. Schema Validation: Reject if Google Sheets formulas break and return strings/nulls instead of numbers
+        const isStructurallyValid = actualArray.every((item) => 
+          typeof item === 'object' && item !== null &&
+          typeof item.college === 'string' && item.college.trim() !== '' &&
+          typeof item.count === 'number' && !isNaN(item.count) &&
+          typeof item.total === 'number' && !isNaN(item.total)
+        );
 
-        // Monotonicity Check: Votes should never go down.
-        // If they do, the backend/Sheets integration has dropped data.
-        if (incomingTotal < highestTotalRef.current) {
-           console.warn("Data integrity error: Incoming votes are lower than historical votes. Rejecting payload.");
-           throw new Error("Data stream corrupted. Retaining last known good data.");
+        if (!isStructurallyValid) {
+          console.error("Payload failed schema validation:", actualArray);
+          throw new Error("Data stream corrupted. Schema mismatch detected.");
         }
 
-        // Payload is valid. Update state and ref.
-        highestTotalRef.current = incomingTotal;
+        // Payload is structurally sound. Accept it regardless of value increases/decreases.
         setData(actualArray);
         setError(null);
 
       } catch (err) {
-        // Do NOT clear the data array here. Retain last known state.
+        // Retain last known good data array on failure
         if (axios.isAxiosError(err)) {
           setError(err.message);
         } else if (err instanceof Error) {
