@@ -1,7 +1,6 @@
 // src/features/tracker/components/OverallTurnoutCard.tsx
 import type { CollegeTurnout } from "../types";
 import { collegeConfig } from "../utils/config";
-import { Inbox } from "lucide-react";
 
 interface OverallTurnoutCardProps {
   pollData: CollegeTurnout[];
@@ -63,12 +62,12 @@ const OverallTurnoutCard = ({ pollData }: OverallTurnoutCardProps) => {
         </div>
 
         <div>
-          <h2 className="text-gray-900 font-semibold tracking-wide uppercase text-md mb-1">
+          <h2 className="text-gray-900 font-bold tracking-wide uppercase text-md mb-1">
             Total Voter's Turnout For SG Elections 2025 - 2026
           </h2>
 
           {/* New Date Position */}
-          <div className="text-gray-600 text-xs font-bold rounded-sm inline-block tracking-wider mb-2">
+          <div className="text-gray-600 text-xs font-semibold rounded-sm inline-block tracking-wider mb-2">
             AS OF {currentDate} | {currentTime}
           </div>
 
