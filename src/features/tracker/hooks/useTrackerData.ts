@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import type { CollegeTurnout, TallyApiResponse } from '../types';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import type { CollegeTurnout, TallyApiResponse } from "../types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -20,23 +20,36 @@ export const useTrackerData = () => {
           throw new Error("Received empty or malformed data payload.");
         }
 
-        const isStructurallyValid = actualArray.every((item) => 
-          typeof item === 'object' && item !== null &&
-          typeof item.college === 'string' && item.college.trim() !== '' &&
-          typeof item.count === 'number' && !isNaN(item.count) &&
-          typeof item.total === 'number' && !isNaN(item.total)
+        const isStructurallyValid = actualArray.every(
+          (item) =>
+            typeof item === "object" &&
+            item !== null &&
+            typeof item.college === "string" &&
+            item.college.trim() !== "" &&
+            typeof item.count === "number" &&
+            !isNaN(item.count) &&
+            typeof item.total === "number" &&
+            !isNaN(item.total),
         );
 
         if (!isStructurallyValid) {
           throw new Error("Data stream corrupted. Schema mismatch detected.");
         }
 
-        setData(actualArray);
+        // Sanitize the underReview column (handles Google Sheets string/boolean quirks)
+        const sanitizedData = actualArray.map((item) => ({
+          ...item,
+          underReview:
+            item.underReview === true ||
+            String(item.underReview).toUpperCase() === "TRUE",
+        }));
+
+        setData(sanitizedData);
         setError(null);
       } catch (err) {
         if (axios.isAxiosError(err)) setError(err.message);
         else if (err instanceof Error) setError(err.message);
-        else setError('An unexpected connection error occurred.');
+        else setError("An unexpected connection error occurred.");
       } finally {
         setIsLoading(false);
       }
@@ -47,7 +60,8 @@ export const useTrackerData = () => {
 
     // 2. Calculate offset to the next exact minute (XX:00)
     const now = new Date();
-    const msUntilNextMinute = 60000 - (now.getSeconds() * 1000 + now.getMilliseconds());
+    const msUntilNextMinute =
+      60000 - (now.getSeconds() * 1000 + now.getMilliseconds());
 
     let intervalId: ReturnType<typeof setInterval>;
 
