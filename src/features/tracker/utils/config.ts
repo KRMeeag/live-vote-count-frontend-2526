@@ -25,11 +25,11 @@ export const collegeConfig: Record<string, CollegeTheme> = {
   },
   
   // Amber (Tailwind amber-500) - Rich golden yellow
-  "CBEAM & COL": {
+  "CBEAM": {
     bgClass: "bg-[#f59e0b]",
     borderClass: "border-[#f59e0b]",
     hex: "#f59e0b",
-    logos: ["/cbeam.png", "/col.png"],
+    logos: ["/cbeam.png"],
   },
   
   // True Green (Tailwind green-600) - Warmer and leafier, no blue undertones

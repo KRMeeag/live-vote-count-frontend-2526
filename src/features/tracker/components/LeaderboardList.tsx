@@ -8,29 +8,35 @@ interface LeaderboardListProps {
 }
 
 const LeaderboardList = ({ pollData }: LeaderboardListProps) => {
-  const sortedData = [...pollData].sort((a, b) => b.percentage - a.percentage);
+  if (pollData.length === 0) return null;
 
-  if (sortedData.length === 0) return null;
+  // 1. Separate the data
+  const validColleges = pollData.filter(c => !c.underReview);
+  const pendingColleges = pollData.filter(c => c.underReview);
+
+  // 2. Sort only the valid colleges
+  validColleges.sort((a, b) => b.percentage - a.percentage);
+
+  // 3. Recombine: Valid first, Pending at the bottom
+  const displayData = [...validColleges, ...pendingColleges];
 
   return (
-    <div 
-      className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full h-full min-h-0"
-      // Enforces the strict height ratio: 1.0 (Hero) > 0.75 (Runners-up)
-      style={{ gridTemplateRows: '1fr 0.75fr 0.75fr' }}
-    >
-      {sortedData.map((collegeData, index) => {
-        const isFirst = index === 0;
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full md:h-full md:min-h-0 md:[grid-template-rows:1fr_0.75fr_0.75fr]">
+      {displayData.map((collegeData, index) => {
+        const isFirst = index === 0 && !collegeData.underReview;
 
         return (
           <motion.div
             key={collegeData.college}
             layout
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            // The item at index 0 stretches across both columns. 
-            // Framer Motion animates the transition between col-span-1 and col-span-2.
             className={`w-full h-full min-h-0 ${isFirst ? 'md:col-span-2' : 'col-span-1'}`}
           >
-            <CollegeCard data={collegeData} rank={index + 1} />
+            {/* Pass the rank ONLY if it's not under review */}
+            <CollegeCard 
+              data={collegeData} 
+              rank={collegeData.underReview ? 0 : index + 1} 
+            />
           </motion.div>
         );
       })}

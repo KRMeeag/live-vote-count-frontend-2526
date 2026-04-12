@@ -3,6 +3,7 @@ export interface CollegeTurnout {
   count: number;
   total: number;
   percentage: number;
+  underReview?: boolean; // New column
 }
 
 export interface TallyApiResponse {
