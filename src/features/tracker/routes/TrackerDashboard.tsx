@@ -21,9 +21,14 @@ const TrackerDashboard = () => {
   useEffect(() => {
     if (isLoading) return; 
 
-    const interval = setInterval(() => {
-      setSecondsLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
+    const calculateSecondsLeft = () => {
+      const currentSeconds = new Date().getSeconds();
+      setSecondsLeft(60 - currentSeconds);
+    };
+
+    calculateSecondsLeft(); // Init instantly
+
+    const interval = setInterval(calculateSecondsLeft, 500);
 
     return () => clearInterval(interval);
   }, [isLoading]);
@@ -71,7 +76,7 @@ const TrackerDashboard = () => {
       <div className="flex flex-col h-screen items-center justify-center bg-[#f4f4f4]">
         <div className="relative flex items-center justify-center w-32 h-32 mb-6">
           <div className="absolute inset-0 rounded-full border-4 border-gray-200 border-t-green-800 animate-spin"></div>
-          <img src="/logos/comelec-logo.png" alt="COMELEC" className="w-20 h-20 object-contain animate-pulse z-10" />
+          <img src="/comelec.png" alt="COMELEC" className="w-20 h-20 object-contain animate-pulse z-10" />
         </div>
         <h2 className="text-green-800 font-heading font-bold tracking-[0.2em] animate-pulse text-center px-4">
           ESTABLISHING LIVE CONNECTION...
