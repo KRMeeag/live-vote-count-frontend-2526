@@ -11,7 +11,7 @@ const QrWidget = () => {
       <div className="bg-white p-4 rounded-sm shadow-md mb-6 w-56 h-56 flex items-center justify-center">
         {/* Replace with your actual QR code image */}
         <img
-          src="/Mock_QR_Code.svg"
+          src="/QR_Code_Forms.png"
           alt="Scan to vote QR Code"
           className="w-full h-full object-contain"
         />
