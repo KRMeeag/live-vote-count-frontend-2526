@@ -20,19 +20,18 @@ const DidYouKnowWidget = () => {
   }, []);
 
   return (
-    <div className="bg-green-800 text-white p-6 shadow-sm relative overflow-hidden flex flex-col w-full h-[260px] xl:h-auto xl:flex-grow">
-      {/* Header - locked with shrink-0 so it never squishes */}
-      <div className="flex items-center gap-3 mb-4 shrink-0">
-        <Info size={24} className="text-green-300" />
-        <h3 className="font-bold text-sm tracking-widest uppercase text-green-50">Did You Know?</h3>
+    <div className="bg-green-800 text-white p-4 xl:p-6 shadow-sm relative overflow-hidden flex flex-col w-full h-[260px] lg:h-full rounded-lg">
+      
+      {/* Header */}
+      <div className="flex items-center gap-2 xl:gap-3 mb-3 xl:mb-4 shrink-0">
+        <Info className="text-green-300 shrink-0 w-5 h-5 xl:w-6 xl:h-6" />
+        <h3 className="font-bold text-xs xl:text-sm tracking-widest uppercase text-green-50 whitespace-nowrap">
+          Did You Know?
+        </h3>
         <div className="h-4 flex-grow border-b border-white/20 ml-2"></div>
       </div>
 
-      {/* The text container. 
-        Using absolute positioning inside this relative block stops the height jumping.
-      */}
       <div className="relative flex-grow w-full">
-        {/* Removed mode="wait" to allow a smooth, simultaneous crossfade */}
         <AnimatePresence>
           <motion.div
             key={index}
@@ -40,14 +39,15 @@ const DidYouKnowWidget = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.5 }}
-            className="absolute inset-0 flex items-center"
+            className="absolute inset-0 flex items-center justify-center"
           >
-            <p className="text-base md:text-lg font-medium leading-relaxed">
+            <p className="font-medium text-center text-green-50 drop-shadow-sm transition-all duration-300 text-sm lg:text-sm xl:text-base 2xl:text-lg leading-tight lg:leading-tight xl:leading-snug 2xl:leading-normal">
               {facts[index]}
             </p>
           </motion.div>
         </AnimatePresence>
       </div>
+      
     </div>
   );
 };
