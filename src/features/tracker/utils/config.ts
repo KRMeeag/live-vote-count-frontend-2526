@@ -17,7 +17,7 @@ export const collegeConfig: Record<string, CollegeTheme> = {
   },
   
   // Blue (Tailwind blue-600) - Deep pure blue
-  "CEAS & CCJE": {
+  "CEAS/CCJE": {
     bgClass: "bg-[#2563eb]",
     borderClass: "border-[#2563eb]",
     hex: "#2563eb",
